@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Cos {
-    public BigDecimal cos(double x, double eps) throws AccuracyException, ArithmeticException {
+    public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
 
         if (Math.abs(eps) >= 1)
-            throw new AccuracyException("Can't calculate COS: epsilon doesn't meet condition -1 < eps < 1");
+            throw new AccuracyException("Can't calculate trigonometric function: epsilon doesn't meet condition -1 < eps < 1");
         if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
-            throw new ArithmeticException("Can't calculate COS: x can't an Infinity");
+            throw new ArithmeticException("Can't calculate trigonometric function: x can't be an Infinity");
 
         if (x >= 0) {
             while (x > 2 * Math.PI) {
@@ -20,6 +20,10 @@ public class Cos {
                 x += 2 * Math.PI;
             }
         }
+
+        if (x == Math.PI / 2) return BigDecimal.ZERO;
+        else if (x == 2 * Math.PI) return BigDecimal.ONE;
+        else if (x == Math.PI) return BigDecimal.ONE.multiply(BigDecimal.valueOf(-1));
 
         BigDecimal result = BigDecimal.ONE;
         BigDecimal previous_result;
@@ -32,8 +36,7 @@ public class Cos {
             factorial = factorial.multiply(BigDecimal.valueOf(n + 1)).multiply(BigDecimal.valueOf(n + 2));
             n += 2;
             sign *= -1;
-            System.out.println(result);
-        } while (result.subtract(previous_result).abs().compareTo(BigDecimal.valueOf(eps)) == 1);
+        } while (result.subtract(previous_result).abs().compareTo(BigDecimal.valueOf(eps)) > 0);
         return result;
     }
 }
