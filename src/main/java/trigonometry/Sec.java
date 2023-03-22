@@ -1,5 +1,7 @@
 package trigonometry;
 
+import exceptions.AccuracyException;
+
 import java.math.BigDecimal;
 
 import static java.lang.String.format;
@@ -12,9 +14,10 @@ public class Sec {
         this.cos = new Cos();
     }
 
-    public BigDecimal calculate(double x, double eps) {
+    public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         BigDecimal calculatedCos = cos.calculate(x, eps);
-        if (calculatedCos.compareTo(BigDecimal.ZERO) == 0) throw new ArithmeticException(format("Sec value for argument %s doesn't exist", x));
+        if (calculatedCos.compareTo(BigDecimal.ZERO) == 0)
+            throw new ArithmeticException(format("Sec value for argument %s doesn't exist", x));
         else return BigDecimal.ONE.divide(calculatedCos, 30, HALF_EVEN);
     }
 }

@@ -1,14 +1,15 @@
 package trigonometry;
 
+import exceptions.AccuracyException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Cos {
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
-
         if (Math.abs(eps) >= 1)
             throw new AccuracyException("Can't calculate trigonometric function: epsilon doesn't meet condition -1 < eps < 1");
-        if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
+        else if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
             throw new ArithmeticException("Can't calculate trigonometric function: x can't be an Infinity");
 
         if (x >= 0) {

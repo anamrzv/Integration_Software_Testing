@@ -1,5 +1,7 @@
 package trigonometry;
 
+import exceptions.AccuracyException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -17,7 +19,7 @@ public class Sin {
         this.cos = cos;
     }
 
-    public BigDecimal calculate(double x, double eps) {
+    public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (x >= 0) {
             while (x > 2 * Math.PI) {
                 x -= 2 * Math.PI;
