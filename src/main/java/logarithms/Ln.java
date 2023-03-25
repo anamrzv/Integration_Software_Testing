@@ -10,10 +10,8 @@ public class Ln implements Calculatable {
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (Math.abs(eps) >= 1)
             throw new AccuracyException("Can't calculate logarithmic function: epsilon doesn't meet condition -1 < eps < 1");
-        //else if (x <= 0) throw new ArithmeticException("Can't calculate logarithmic function: Ln doesn't exist for x <= 0");
         else if (x <= 0) return null;
-        else if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
-            throw new ArithmeticException("Can't calculate trigonometric function: x can't be an Infinity");
+        else if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x) return null;
 
         if (x == 1) return BigDecimal.ZERO;
         else if (x == Math.E) return BigDecimal.ONE;
@@ -34,6 +32,7 @@ public class Ln implements Calculatable {
             BigDecimal num = BigDecimal.valueOf((x - 1) / (x + 1));
             BigDecimal current_term;
 
+            BigDecimal prev_result = BigDecimal.ZERO;
             boolean enoughAccuracy = false;
 
             for (int i = 1; !enoughAccuracy; i++) {
@@ -42,8 +41,9 @@ public class Ln implements Calculatable {
                 current_term = current_term.divide(BigDecimal.valueOf(mul), 30, RoundingMode.HALF_UP);
                 result = result.add(current_term);
 
-                if (current_term.compareTo(BigDecimal.valueOf(eps / 2)) < 0)
+                if (result.subtract(prev_result).abs().compareTo(BigDecimal.valueOf(eps)) < 0)
                     enoughAccuracy = true;
+                prev_result = result;
             }
 
             result = result.multiply(BigDecimal.valueOf(2));
