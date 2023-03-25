@@ -1,7 +1,7 @@
 package trigonometry;
 
-import exceptions.AccuracyException;
-import exceptions.Calculatable;
+import utils.AccuracyException;
+import utils.Calculatable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,14 +18,14 @@ public class Cos implements Calculatable {
                 x -= 2 * Math.PI;
             }
         } else {
-            while (x < 2 * Math.PI) {
+            while (x < -2 * Math.PI) {
                 x += 2 * Math.PI;
             }
         }
 
-        if (x == Math.PI / 2) return BigDecimal.ZERO;
-        else if (x == 2 * Math.PI) return BigDecimal.ONE;
-        else if (x == Math.PI) return BigDecimal.ONE.multiply(BigDecimal.valueOf(-1));
+        if (Math.abs(x) == Math.PI / 2 || Math.abs(x) == Math.PI / 2 * 3) return BigDecimal.ZERO;
+        else if (Math.abs(x) == 2 * Math.PI) return BigDecimal.ONE;
+        else if (Math.abs(x) == Math.PI) return BigDecimal.ONE.multiply(BigDecimal.valueOf(-1));
 
         BigDecimal result = BigDecimal.ONE;
         BigDecimal previous_result;

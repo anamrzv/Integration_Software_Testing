@@ -1,4 +1,4 @@
-package exceptions;
+package utils;
 
 public class AccuracyException extends RuntimeException {
     public AccuracyException(String message) {

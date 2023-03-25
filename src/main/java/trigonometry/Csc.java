@@ -1,7 +1,7 @@
 package trigonometry;
 
-import exceptions.AccuracyException;
-import exceptions.Calculatable;
+import utils.AccuracyException;
+import utils.Calculatable;
 
 import java.math.BigDecimal;
 
@@ -14,11 +14,13 @@ public class Csc implements Calculatable {
     public Csc() {
         this.sin = new Sin();
     }
+    public Csc(Sin sin) {
+        this.sin = sin;
+    }
 
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         BigDecimal calculatedSin = sin.calculate(x, eps);
-        if (calculatedSin.compareTo(BigDecimal.ZERO) == 0)
-            throw new ArithmeticException(format("Csc value for argument %s doesn't exist", x));
+        if (calculatedSin.compareTo(BigDecimal.ZERO) == 0) return null;
         else return BigDecimal.ONE.divide(calculatedSin, 30, HALF_EVEN);
     }
 

@@ -1,7 +1,7 @@
 package logarithms;
 
-import exceptions.AccuracyException;
-import exceptions.Calculatable;
+import utils.AccuracyException;
+import utils.Calculatable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,7 +10,10 @@ public class Ln implements Calculatable {
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (Math.abs(eps) >= 1)
             throw new AccuracyException("Can't calculate logarithmic function: epsilon doesn't meet condition -1 < eps < 1");
-        else if (x <= 0) throw new ArithmeticException("Can't calculate logarithmic function: Ln doesn't exist for x <= 0");
+        //else if (x <= 0) throw new ArithmeticException("Can't calculate logarithmic function: Ln doesn't exist for x <= 0");
+        else if (x <= 0) return null;
+        else if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
+            throw new ArithmeticException("Can't calculate trigonometric function: x can't be an Infinity");
 
         if (x == 1) return BigDecimal.ZERO;
         else if (x == Math.E) return BigDecimal.ONE;

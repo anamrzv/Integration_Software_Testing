@@ -1,7 +1,7 @@
 package trigonometry;
 
-import exceptions.AccuracyException;
-import exceptions.Calculatable;
+import utils.AccuracyException;
+import utils.Calculatable;
 
 import java.math.BigDecimal;
 
@@ -17,10 +17,14 @@ public class Tg implements Calculatable {
         this.sin = new Sin();
     }
 
+    public Tg(Cos cos, Sin sin) {
+        this.cos = cos;
+        this.sin = sin;
+    }
+
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         BigDecimal calculatedCos = cos.calculate(x, eps);
-        if (calculatedCos.compareTo(BigDecimal.ZERO) == 0)
-            throw new ArithmeticException(format("Tg value for argument %s doesn't exist", x));
+        if (calculatedCos.compareTo(BigDecimal.ZERO) == 0) return null;
         else {
             BigDecimal calculatedSin = sin.calculate(x, eps);
             return calculatedSin.divide(calculatedCos, 30, HALF_EVEN);
