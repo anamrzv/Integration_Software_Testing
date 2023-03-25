@@ -41,7 +41,7 @@ public class LogarithmTest {
         assertEquals(0.5, log2.calculate(Math.sqrt(2), 0.0001).doubleValue(), DELTA);
         assertEquals(-1, log2.calculate(0.5, 0.0001).doubleValue(), DELTA);
 
-        assertEquals(2, log3.calculate(9, 0.0001).doubleValue(), DELTA);
+        assertEquals(2, log3.calculate(9, 0.00001).doubleValue(), DELTA);
         assertEquals(0, log3.calculate(1, 0.0001).doubleValue(), DELTA);
         assertEquals(0.5, log3.calculate(Math.sqrt(3), 0.0001).doubleValue(), DELTA);
         assertEquals(-1, log3.calculate(0.3333, 0.00001).doubleValue(), DELTA);
@@ -70,7 +70,7 @@ public class LogarithmTest {
         assertEquals(0.6931, ln.calculate(2, 0.0001).doubleValue(), DELTA);
         assertEquals(0.3466, ln.calculate(Math.sqrt(2), 0.0001).doubleValue(), DELTA);
         assertEquals(3.2189, ln.calculate(25, 0.000001).doubleValue(), DELTA);
-        //assertEquals(-1.6094, ln.calculate(0.3333, 0.000001).doubleValue(), DELTA);
+        assertEquals(-1.6094, ln.calculate(0.2, 0.000001).doubleValue(), DELTA);
         assertThrows(AccuracyException.class, () -> ln.calculate(2, -2));
     }
 }
