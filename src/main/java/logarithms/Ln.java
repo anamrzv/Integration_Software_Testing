@@ -1,11 +1,12 @@
 package logarithms;
 
 import exceptions.AccuracyException;
+import exceptions.Calculatable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Ln {
+public class Ln implements Calculatable {
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (Math.abs(eps) >= 1)
             throw new AccuracyException("Can't calculate logarithmic function: epsilon doesn't meet condition -1 < eps < 1");
@@ -46,6 +47,5 @@ public class Ln {
 
         }
         return result;
-
     }
 }

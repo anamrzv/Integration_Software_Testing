@@ -1,3 +1,4 @@
+import exceptions.Calculatable;
 import logarithms.Ln;
 import logarithms.Log;
 import trigonometry.*;
@@ -5,7 +6,7 @@ import trigonometry.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class FunctionsSystem {
+public class FunctionsSystem implements Calculatable {
 
     private final Cos cos;
     private final Sin sin;
@@ -83,7 +84,6 @@ public class FunctionsSystem {
                     .add(rightParenthesis);
 
             return upperPart.divide(lowerPart, 30, RoundingMode.HALF_UP);
-
         }
     }
 }

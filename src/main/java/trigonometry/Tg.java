@@ -1,13 +1,14 @@
 package trigonometry;
 
 import exceptions.AccuracyException;
+import exceptions.Calculatable;
 
 import java.math.BigDecimal;
 
 import static java.lang.String.format;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class Tg {
+public class Tg implements Calculatable {
     private final Cos cos;
     private final Sin sin;
 
@@ -25,5 +26,6 @@ public class Tg {
             return calculatedSin.divide(calculatedCos, 30, HALF_EVEN);
         }
     }
+
 }
 

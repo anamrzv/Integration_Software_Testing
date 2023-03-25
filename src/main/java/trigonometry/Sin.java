@@ -1,6 +1,7 @@
 package trigonometry;
 
 import exceptions.AccuracyException;
+import exceptions.Calculatable;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -8,15 +9,11 @@ import java.math.MathContext;
 import static java.math.MathContext.DECIMAL128;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class Sin {
+public class Sin implements Calculatable {
     private final Cos cos;
 
     public Sin() {
         this.cos = new Cos();
-    }
-
-    public Sin(Cos cos) {
-        this.cos = cos;
     }
 
     public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
@@ -35,6 +32,4 @@ public class Sin {
         if (x > Math.PI) return withoutSign.multiply(BigDecimal.valueOf(-1));
         else return withoutSign;
     }
-
-
 }

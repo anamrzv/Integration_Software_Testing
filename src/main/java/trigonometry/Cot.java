@@ -1,13 +1,14 @@
 package trigonometry;
 
 import exceptions.AccuracyException;
+import exceptions.Calculatable;
 
 import java.math.BigDecimal;
 
 import static java.lang.String.format;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class Cot {
+public class Cot implements Calculatable {
     private final Cos cos;
     private final Sin sin;
 

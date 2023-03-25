@@ -1,13 +1,14 @@
 package trigonometry;
 
 import exceptions.AccuracyException;
+import exceptions.Calculatable;
 
 import java.math.BigDecimal;
 
 import static java.lang.String.format;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class Csc {
+public class Csc implements Calculatable {
     private final Sin sin;
 
     public Csc() {
@@ -20,4 +21,5 @@ public class Csc {
             throw new ArithmeticException(format("Csc value for argument %s doesn't exist", x));
         else return BigDecimal.ONE.divide(calculatedSin, 30, HALF_EVEN);
     }
+
 }
