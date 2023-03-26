@@ -130,6 +130,7 @@ public class FunctionsSystemTest {
         FunctionsSystem system = new FunctionsSystem(cos, sin, cot, tg, csc, sec, ln, log2, log3, log5);
 
         assertEquals(expectedResult, system.calculate(x, 0.000001), DELTA);
+        assertEquals(Double.NaN, system.calculate(0, 0.000001));
     }
 
     @DisplayName("Test Functions' System without Mocks")
@@ -150,7 +151,7 @@ public class FunctionsSystemTest {
     })
     public void integrateTest(double x, double expectedResult) {
         FunctionsSystem system = new FunctionsSystem();
-        assertEquals(expectedResult, system.calculate(x, 0.000001), DELTA);
+        assertEquals(expectedResult, system.calculate(x, 0.000001), DELTA);assertEquals(Double.NaN, system.calculate(0, 0.000001));
     }
 
 }

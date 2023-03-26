@@ -26,6 +26,8 @@ public class TrigonometryTest {
         Mockito.when(sin.calculate(eq(-Math.PI), anyDouble())).thenReturn(0d);
         Mockito.when(sin.calculate(eq(-1.5*Math.PI), anyDouble())).thenReturn(1d);
         Mockito.when(sin.calculate(eq(-2*Math.PI), anyDouble())).thenReturn(0d);
+        Mockito.when(sin.calculate(eq(-3*Math.PI), anyDouble())).thenReturn(1d);
+        Mockito.when(sin.calculate(eq(-4*Math.PI), anyDouble())).thenReturn(0d);
 
         Mockito.when(sin.calculate(eq(Math.PI / 4), anyDouble())).thenReturn(Math.sqrt(2) / 2);
         Mockito.when(sin.calculate(eq(Math.PI / 3), anyDouble())).thenReturn(Math.sqrt(3) / 2);
@@ -39,8 +41,11 @@ public class TrigonometryTest {
         assertEquals(Math.sqrt(2), csc.calculate(Math.PI/4, 0.001), DELTA);
         assertEquals(Math.sqrt(3)*2/3, csc.calculate(Math.PI/3, 0.001), DELTA);
         assertEquals(1d, csc.calculate(Math.PI/2, 0.001));
+        assertEquals(1d, csc.calculate(-3*Math.PI, 0.001));
         assertEquals(Double.NaN, csc.calculate(0, 0.001));
         assertEquals(Double.NaN,csc.calculate(Math.PI * 2, 0.001));
+        assertEquals(Double.NaN,csc.calculate(Math.PI * 4, 0.001));
+        assertEquals(Double.NaN,csc.calculate(-Math.PI * 4, 0.001));
         assertEquals(Math.sqrt(3)*2/3, csc.calculate(2*Math.PI/3, 0.001), DELTA);
         assertEquals(Double.NaN,csc.calculate(Math.PI, 0.001));
         assertEquals(-2, csc.calculate(-Math.PI/6, 0.001));
@@ -210,6 +215,8 @@ public class TrigonometryTest {
         assertEquals(-1d, cos.calculate(Math.PI, 0.0001));
         assertEquals(0d, cos.calculate(1.5 * Math.PI, 0.0001));
         assertEquals(1d, cos.calculate(2 * Math.PI, 0.0001));
+        assertEquals(1d, cos.calculate(4 * Math.PI, 0.0001));
+        assertEquals(-1, cos.calculate(3 * Math.PI, 0.0001));
 
         assertEquals(0d, cos.calculate(-Math.PI / 2, 0.0001), DELTA);
         assertEquals(-1d, cos.calculate(-Math.PI, 0.0001), DELTA);
