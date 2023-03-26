@@ -20,7 +20,7 @@ public class Sin implements Calculatable {
         this.cos = cos;
     }
 
-    public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
+    public double calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (x >= 0) {
             while (x > 2 * Math.PI) {
                 x -= 2 * Math.PI;
@@ -32,9 +32,9 @@ public class Sin implements Calculatable {
         }
 
         final MathContext mc = new MathContext(DECIMAL128.getPrecision(), HALF_EVEN);
-        BigDecimal withoutSign = BigDecimal.ONE.subtract(cos.calculate(x, eps).pow(2)).sqrt(mc).abs();
+        BigDecimal withoutSign = BigDecimal.ONE.subtract(BigDecimal.valueOf(cos.calculate(x, eps)).pow(2)).sqrt(mc).abs();
         if ((x >= Math.PI && x <= 2 * Math.PI) || (x >= -Math.PI && x <= 0))
-            return withoutSign.multiply(BigDecimal.valueOf(-1));
-        else return withoutSign;
+            return withoutSign.multiply(BigDecimal.valueOf(-1)).doubleValue();
+        else return withoutSign.doubleValue();
     }
 }

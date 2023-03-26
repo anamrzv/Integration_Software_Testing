@@ -5,9 +5,6 @@ import utils.Calculatable;
 import logarithms.Ln;
 import trigonometry.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class FunctionsSystem implements Calculatable {
     private final Cos cos;
     private final Sin sin;
@@ -47,63 +44,103 @@ public class FunctionsSystem implements Calculatable {
         this.log5 = log5;
     }
 
-    public BigDecimal calculate(double x, double eps) {
+    public double calculate(double x, double eps) {
         try {
             if (x > 0) {
-                return ln.calculate(x, eps)
-                        .add(log2.calculate(x, eps))
-                        .add(log3.calculate(x, eps))
-                        .add(log5.calculate(x, eps))
-                        .pow(3)
-                        .pow(2);
+                return Math.pow(Math.pow((ln.calculate(x, eps) + log2.calculate(x, eps) + log3.calculate(x, eps) + log5.calculate(x, eps)), 3), 2);
             } else {
-                BigDecimal firstTermNumerator = sec.calculate(x, eps)
-                        .multiply(csc.calculate(x, eps))
-                        .divide(csc.calculate(x, eps), 30, RoundingMode.HALF_UP);
-                BigDecimal firstTermDenominator = cos.calculate(x, eps)
-                        .add(sin.calculate(x, eps))
-                        .subtract(sec.calculate(x, eps))
-                        .divide(cot.calculate(x, eps), 30, RoundingMode.HALF_UP);
-                BigDecimal firstMul = firstTermNumerator
-                        .divide(firstTermDenominator, 30, RoundingMode.HALF_UP)
-                        .add(cot.calculate(x, eps))
-                        .divide(tg.calculate(x, eps), 30, RoundingMode.HALF_UP)
-                        .pow(3)
-                        .add(cos.calculate(x, eps))
-                        .subtract(tg.calculate(x, eps)); // до умножения
+                double secx = sec.calculate(x, eps);
+                double cscx = csc.calculate(x, eps);
+                double cosx = cos.calculate(x, eps);
+                double sinx = sin.calculate(x, eps);
+                double cotx = cot.calculate(x, eps);
+                double tgx = tg.calculate(x, eps);
 
-                BigDecimal secondMul = cot.calculate(x, eps)
-                        .multiply(sin.calculate(x, eps).divide(cos.calculate(x, eps).add(cot.calculate(x, eps)), 30, RoundingMode.HALF_UP))
-                        .add(sec.calculate(x, eps))
-                        .subtract(csc.calculate(x, eps).multiply(csc.calculate(x, eps)).multiply(sin.calculate(x, eps)).pow(3));
-                BigDecimal upperPart = firstMul.multiply(secondMul).pow(3);
+                double term1Numerator1 = secx * cscx;
+                double term1Numerator = term1Numerator1 / cscx;
 
-                BigDecimal lowerFraction = csc.calculate(x, eps)
-                        .add(sec.calculate(x, eps).divide(sec.calculate(x, eps).multiply(csc.calculate(x, eps)), 30, RoundingMode.HALF_UP).multiply(cos.calculate(x, eps)))
-                        .divide(cos.calculate(x, eps), 30, RoundingMode.HALF_UP);
-                BigDecimal rightParenthesis = csc.calculate(x, eps)
-                        .subtract(cos.calculate(x, eps)
-                                .subtract(sin.calculate(x, eps)
-                                        .subtract(sin.calculate(x, eps))
-                                        .add(cot.calculate(x, eps))
-                                        .pow(2))
-                                .add(tg.calculate(x, eps)))
-                        .add(csc.calculate(x, eps))
-                        .add(cos.calculate(x, eps))
-                        .subtract(csc.calculate(x, eps)
-                                .divide(sec.calculate(x, eps)
-                                        .subtract(sin.calculate(x, eps)), 30, RoundingMode.HALF_UP));
+                double term1Denominator1 = cosx + (sinx - secx);
+                double term1Denominator = term1Denominator1 / cotx;
 
-                BigDecimal lowerPart = csc.calculate(x, eps)
-                        .subtract(lowerFraction)
-                        .subtract(sin.calculate(x, eps))
-                        .subtract(cos.calculate(x, eps))
-                        .add(rightParenthesis);
+                double term1Mul1 = (term1Numerator / term1Denominator) + cotx;
+                double term1Mul = Math.pow((term1Mul1 / tgx), 3) + (cosx - tgx);
 
-                return upperPart.divide(lowerPart, 30, RoundingMode.HALF_UP);
+                double term2Mul1 = cotx * (sinx / (cosx + cotx));
+                double term2Mul2 = term2Mul1 + secx;
+                double term2Mul3 = Math.pow((cscx * cscx * sinx), 3);
+                double term2Mul = term2Mul2 - term2Mul3;
+
+                double upperPart = Math.pow(term1Mul * term2Mul, 3);
+
+                double term3Numerator1 = secx / (secx * cscx);
+                double term3Numerator = term3Numerator1 * cosx;
+                double term3Denominator1 = cscx + term3Numerator;
+                double term3Denominator = term3Denominator1 / cosx;
+                double term4 = cscx - term3Denominator - sinx - cosx;
+
+                double lowerPart = term4 + (cscx - ((cosx - Math.pow((sinx - (sinx + cotx)), 2) + tgx) + (cscx + (cosx - (cscx / (secx - sinx))))));
+
+                return upperPart / lowerPart;
+//                double a = (sec.calculate(x, eps) * csc.calculate(x, eps)) / csc.calculate(x, eps);
+//                double b = (cos.calculate(x, eps) + (sin.calculate(x, eps) - sec.calculate(x, eps))) / cot.calculate(x, eps);
+//                double c = (a / b) + cot.calculate(x, eps);
+//                double d = Math.pow((c / tg.calculate(x, eps)), 3) + (cos.calculate(x, eps) - tg.calculate(x, eps));
+//                double e = (((cot.calculate(x, eps)) * (sin.calculate(x, eps) / (cos.calculate(x, eps) + cot.calculate(x, eps)))) - (Math.pow(((csc.calculate(x, eps) * csc.calculate(x, eps)) * sin.calculate(x, eps)), 3)));
+//                double f = Math.pow((d * e), 3);
+//
+//                double h = (csc.calculate(x, eps) + ((sec.calculate(x, eps) / (sec.calculate(x, eps) * csc.calculate(x, eps))) * cos.calculate(x, eps))) / cos.calculate(x, eps);
+//                double g = (((csc.calculate(x, eps)-h)-sin.calculate(x,eps))- cos.calculate(x,eps));
+//                double j = g + (csc.calculate(x, eps)-
+//                                    ((cos.calculate(x,eps)-
+//                                            (( Math.pow((sin.calculate(x,eps)-(sin.calculate(x,eps)+cot.calculate(x,eps))),2)
+//                                                    +tg.calculate(x,eps)))
+//                                            + (csc.calculate(x,eps)+(cos.calculate(x, eps)- (csc.calculate(x,eps)/(sec.calculate(x,eps)- sin.calculate(x,eps))))))
+//                                    )
+//                                );
+//                double result = f/j;
+
+//                double firstTermNumerator1 = sec.calculate(x, eps) * csc.calculate(x, eps);
+//                double firstTermNumerator = firstTermNumerator1 / csc.calculate(x, eps);
+//
+//                double firstTermDenominator1 = cos.calculate(x, eps) + (sin.calculate(x, eps) - sec.calculate(x, eps));
+//                double firstTermDenominator = firstTermDenominator1 / cot.calculate(x, eps);
+//
+//                double firstMul1 = (firstTermNumerator / firstTermDenominator) + cot.calculate(x, eps);
+//
+//                double firstMul = Math.pow((firstMul1 / tg.calculate(x, eps)), 3) + (cos.calculate(x, eps) - tg.calculate(x, eps));
+//
+//                double secondMul1 = cot.calculate(x, eps) * (sin.calculate(x, eps) / (cos.calculate(x, eps) + cot.calculate(x, eps)));
+//                double secondMul2 = secondMul1 + sec.calculate(x, eps);
+//
+//                double rightPart = Math.pow((csc.calculate(x, eps) * csc.calculate(x, eps) * sin.calculate(x, eps)), 3);
+//                double secondMul = secondMul2 - rightPart;
+//                double upperPart = Math.pow(firstMul * secondMul, 3);
+//
+//                double lowerFraction = (csc.calculate(x, eps) + ((sec.calculate(x, eps) / (sec.calculate(x, eps) * csc.calculate(x, eps))) * cos.calculate(x, eps))) / cos.calculate(x, eps);
+//                double rightParenthesis = csc.calculate(x, eps)
+//                        - ((cos.calculate(x, eps)
+//                        - (Math.pow((sin.calculate(x, eps)
+//                        - (sin.calculate(x, eps)
+//                        + cot.calculate(x, eps))), 2)
+//                        + tg.calculate(x, eps)))
+//                        + (csc.calculate(x, eps)
+//                        + (cos.calculate(x, eps)
+//                        - (csc.calculate(x, eps)
+//                        / (sec.calculate(x, eps)
+//                        - sin.calculate(x, eps))))));
+//
+//                double lowerPart = csc.calculate(x, eps)
+//                        - lowerFraction
+//                        - sin.calculate(x, eps)
+//                        - cos.calculate(x, eps)
+//                        + rightParenthesis;
+//
+//                double result = upperPart / lowerPart;
+//                if (Math.abs(result) > 3000) return Double.NaN;
+//                else return result;
             }
         } catch (ArithmeticException e) {
-            return null;
+            return Double.NaN;
         }
     }
 }

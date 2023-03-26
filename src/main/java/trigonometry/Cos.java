@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Cos implements Calculatable {
-    public BigDecimal calculate(double x, double eps) throws AccuracyException, ArithmeticException {
+    public double calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         if (Math.abs(eps) >= 1)
             throw new AccuracyException("Can't calculate trigonometric function: epsilon doesn't meet condition -1 < eps < 1");
         else if (Double.POSITIVE_INFINITY == x || Double.NEGATIVE_INFINITY == x)
@@ -23,9 +23,9 @@ public class Cos implements Calculatable {
             }
         }
 
-        if (Math.abs(x) == Math.PI / 2 || Math.abs(x) == Math.PI / 2 * 3) return BigDecimal.ZERO;
-        else if (Math.abs(x) == 2 * Math.PI) return BigDecimal.ONE;
-        else if (Math.abs(x) == Math.PI) return BigDecimal.ONE.multiply(BigDecimal.valueOf(-1));
+        if (Math.abs(x) == Math.PI / 2 || Math.abs(x) == Math.PI / 2 * 3) return 0;
+        else if (Math.abs(x) == 2 * Math.PI) return 1;
+        else if (Math.abs(x) == Math.PI) return -1;
 
         BigDecimal result = BigDecimal.ONE;
         BigDecimal previous_result;
@@ -39,6 +39,6 @@ public class Cos implements Calculatable {
             n += 2;
             sign *= -1;
         } while (result.subtract(previous_result).abs().compareTo(BigDecimal.valueOf(eps)) > 0);
-        return result;
+        return result.doubleValue();
     }
 }
