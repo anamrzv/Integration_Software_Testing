@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import trigonometry.*;
@@ -10,6 +11,7 @@ public class TrigonometryTest {
 
     private static final double DELTA = 0.0001;
 
+    @DisplayName("Test Csc with Sin Mock")
     @Test
     public void testCsc() {
         Sin sin = Mockito.spy(Sin.class);
@@ -48,6 +50,7 @@ public class TrigonometryTest {
         assertEquals(1.88738, csc.calculate(-3.7, 0.0001), DELTA);
     }
 
+    @DisplayName("Test Sec with Cos Mock")
     @Test
     public void testSec() {
         Cos cos = Mockito.spy(Cos.class);
@@ -88,6 +91,7 @@ public class TrigonometryTest {
         assertEquals(-1.17911, sec.calculate(-3.7, 0.0001), DELTA);
     }
 
+    @DisplayName("Test Cot and Tg with Sin, Cos Mock")
     @Test
     public void testTgAndCot() {
         Cos cos = Mockito.spy(Cos.class);
@@ -155,6 +159,7 @@ public class TrigonometryTest {
         assertEquals(-1.60068, cot.calculate(-3.7, 0.0001), DELTA);
     }
 
+    @DisplayName("Test Sin with Cos Mock")
     @Test
     public void testSin(){
         Cos cos = Mockito.spy(Cos.class);
@@ -196,6 +201,7 @@ public class TrigonometryTest {
         assertEquals(0.529836, sin.calculate(-3.7, 0.0001), DELTA);
     }
 
+    @DisplayName("Test Cos")
     @Test
     public void testCos() {
         Cos cos = new Cos();
@@ -218,5 +224,85 @@ public class TrigonometryTest {
         assertEquals(0.5, cos.calculate(-Math.PI / 3, 0.0001), DELTA);
 
         assertEquals(-0.8481, cos.calculate(-3.7, 0.0001), DELTA);
+    }
+
+    @DisplayName("Test all functions without Mock")
+    @Test
+    public void integrateTest(){
+        Csc csc = new Csc();
+        assertEquals(2d, csc.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(Math.sqrt(2), csc.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3)*2/3, csc.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(1d, csc.calculate(Math.PI/2, 0.001));
+        assertEquals(Double.NaN, csc.calculate(0, 0.001));
+        assertEquals(Double.NaN,csc.calculate(Math.PI * 2, 0.001));
+        assertEquals(Math.sqrt(3)*2/3, csc.calculate(2*Math.PI/3, 0.001), DELTA);
+        assertEquals(Double.NaN,csc.calculate(Math.PI, 0.001));
+        assertEquals(-2, csc.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-Math.sqrt(2), csc.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3)*2/3, csc.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-1, csc.calculate(-Math.PI/2, 0.001));
+        assertEquals(1.88738, csc.calculate(-3.7, 0.0001), DELTA);
+
+        Sec sec = new Sec();
+        assertEquals(1d, sec.calculate(0, 0.001), DELTA);
+        assertEquals(1d, sec.calculate(Math.PI * 2, 0.001));
+        assertEquals(-1d, sec.calculate(Math.PI, 0.001));
+        assertEquals(-1d, sec.calculate(-Math.PI, 0.001));
+        assertEquals(Double.NaN,sec.calculate(Math.PI/2, 0.001));
+        assertEquals(Double.NaN,sec.calculate(-Math.PI/2, 0.001));
+        assertEquals(-2d, sec.calculate(2*Math.PI/3, 0.001), DELTA);
+        assertEquals(-2d, sec.calculate(-2*Math.PI/3, 0.001), DELTA);
+        assertEquals(2d, sec.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(2d, sec.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(Math.sqrt(2), sec.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(Math.sqrt(2), sec.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(2*Math.sqrt(3) / 3, sec.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(2*Math.sqrt(3) / 3, sec.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-1.17911, sec.calculate(-3.7, 0.0001), DELTA);
+
+        Tg tan = new Tg();
+        Cot cot = new Cot();
+        assertEquals(0d, tan.calculate(0, 0.001), DELTA);
+        assertEquals(Double.NaN,tan.calculate(Math.PI/2, 0.001));
+        assertEquals(0d, tan.calculate(Math.PI, 0.001), DELTA);
+        assertEquals(Double.NaN,tan.calculate(3*Math.PI/2, 0.001));
+        assertEquals(1d, tan.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3), tan.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(1/Math.sqrt(3), tan.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(-1d, tan.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3), tan.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-1/Math.sqrt(3), tan.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-0.624733, tan.calculate(-3.7, 0.0001), DELTA);
+
+        assertEquals(Double.NaN,cot.calculate(0, 0.001));
+        assertEquals(0d, cot.calculate(Math.PI/2, 0.001), DELTA);
+        assertEquals(Double.NaN,cot.calculate(Math.PI, 0.001));
+        assertEquals(0d, cot.calculate(3*Math.PI/2, 0.001), DELTA);
+        assertEquals(1d, cot.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(1/Math.sqrt(3), cot.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(Math.sqrt(3), cot.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(-1d, cot.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3)/3, cot.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3), cot.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-1.60068, cot.calculate(-3.7, 0.0001), DELTA);
+
+        Sin sin = new Sin();
+        assertEquals(0d, sin.calculate(0, 0.001));
+        assertEquals(1d, sin.calculate(Math.PI/2, 0.001));
+        assertEquals(0d, sin.calculate(Math.PI, 0.001));
+        assertEquals(-1d, sin.calculate(1.5*Math.PI, 0.001));
+        assertEquals(0d, sin.calculate(2*Math.PI, 0.001));
+        assertEquals(-1d, sin.calculate(-Math.PI/2, 0.001));
+        assertEquals(0d, sin.calculate(-Math.PI, 0.001));
+        assertEquals(1d, sin.calculate(-1.5*Math.PI, 0.001));
+        assertEquals(0d, sin.calculate(-2*Math.PI, 0.001));
+        assertEquals(Math.sqrt(2) / 2, sin.calculate(Math.PI / 4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3) / 2, sin.calculate(Math.PI / 3, 0.001), DELTA);
+        assertEquals(0.5, sin.calculate(Math.PI / 6, 0.001), DELTA);
+        assertEquals(-Math.sqrt(2) / 2, sin.calculate(-Math.PI / 4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3) / 2, sin.calculate(-Math.PI / 3, 0.001), DELTA);
+        assertEquals(-0.5, sin.calculate(-Math.PI / 6, 0.001), DELTA);
+        assertEquals(0.529836, sin.calculate(-3.7, 0.0001), DELTA);
     }
 }

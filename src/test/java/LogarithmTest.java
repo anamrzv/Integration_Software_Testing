@@ -2,6 +2,7 @@ import logarithms.Ln;
 import logarithms.Log2;
 import logarithms.Log3;
 import logarithms.Log5;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import utils.AccuracyException;
@@ -14,6 +15,7 @@ public class LogarithmTest {
 
     private static final double DELTA = 0.0001;
 
+    @DisplayName("Test Logs with Ln Mock")
     @Test
     public void testLog() {
         Ln ln = Mockito.spy(Ln.class);
@@ -49,7 +51,6 @@ public class LogarithmTest {
         assertEquals(0.5, log5.calculate(Math.sqrt(5), 0.0001), DELTA);
         assertEquals(-1, log5.calculate(0.2, 0.0001), DELTA);
 
-
         assertEquals(Double.NaN, log2.calculate(0, 0.0001));
         assertEquals(Double.NaN, log2.calculate(-1, 0.0001));
         assertEquals(Double.NaN, log3.calculate(0, 0.0001));
@@ -58,6 +59,7 @@ public class LogarithmTest {
         assertEquals(Double.NaN, log5.calculate(-1, 0.0001));
     }
 
+    @DisplayName("Test Ln")
     @Test
     public void testLn() {
         Ln ln = new Ln();
@@ -70,5 +72,36 @@ public class LogarithmTest {
         assertEquals(3.2189, ln.calculate(25, 0.000001), DELTA);
         assertEquals(-1.6094, ln.calculate(0.2, 0.000001), DELTA);
         assertThrows(AccuracyException.class, () -> ln.calculate(2, -2));
+    }
+
+    @DisplayName("Test Logs without Ln Mock")
+    @Test
+    public void integrateTest() {
+        Log5 log5 = new Log5();
+        Log3 log3 = new Log3();
+        Log2 log2 = new Log2();
+
+        assertEquals(2, log2.calculate(4, 0.0001), DELTA);
+        assertEquals(0, log2.calculate(1, 0.0001), DELTA);
+        assertEquals(0.5, log2.calculate(Math.sqrt(2), 0.0001), DELTA);
+        assertEquals(-1, log2.calculate(0.5, 0.0001), DELTA);
+
+        assertEquals(2, log3.calculate(9, 0.00001), DELTA);
+        assertEquals(0, log3.calculate(1, 0.0001), DELTA);
+        assertEquals(0.5, log3.calculate(Math.sqrt(3), 0.0001), DELTA);
+        assertEquals(-1, log3.calculate(0.3333, 0.00001), DELTA);
+
+        assertEquals(2, log5.calculate(25, 0.00001), DELTA);
+        assertEquals(0, log5.calculate(1, 0.0001), DELTA);
+        assertEquals(0.5, log5.calculate(Math.sqrt(5), 0.0001), DELTA);
+        assertEquals(-1, log5.calculate(0.2, 0.0001), DELTA);
+
+
+        assertEquals(Double.NaN, log2.calculate(0, 0.0001));
+        assertEquals(Double.NaN, log2.calculate(-1, 0.0001));
+        assertEquals(Double.NaN, log3.calculate(0, 0.0001));
+        assertEquals(Double.NaN, log3.calculate(-1, 0.0001));
+        assertEquals(Double.NaN, log5.calculate(0, 0.0001));
+        assertEquals(Double.NaN, log5.calculate(-1, 0.0001));
     }
 }

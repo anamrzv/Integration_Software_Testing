@@ -81,63 +81,6 @@ public class FunctionsSystem implements Calculatable {
                 double lowerPart = term4 + (cscx - ((cosx - Math.pow((sinx - (sinx + cotx)), 2) + tgx) + (cscx + (cosx - (cscx / (secx - sinx))))));
 
                 return upperPart / lowerPart;
-//                double a = (sec.calculate(x, eps) * csc.calculate(x, eps)) / csc.calculate(x, eps);
-//                double b = (cos.calculate(x, eps) + (sin.calculate(x, eps) - sec.calculate(x, eps))) / cot.calculate(x, eps);
-//                double c = (a / b) + cot.calculate(x, eps);
-//                double d = Math.pow((c / tg.calculate(x, eps)), 3) + (cos.calculate(x, eps) - tg.calculate(x, eps));
-//                double e = (((cot.calculate(x, eps)) * (sin.calculate(x, eps) / (cos.calculate(x, eps) + cot.calculate(x, eps)))) - (Math.pow(((csc.calculate(x, eps) * csc.calculate(x, eps)) * sin.calculate(x, eps)), 3)));
-//                double f = Math.pow((d * e), 3);
-//
-//                double h = (csc.calculate(x, eps) + ((sec.calculate(x, eps) / (sec.calculate(x, eps) * csc.calculate(x, eps))) * cos.calculate(x, eps))) / cos.calculate(x, eps);
-//                double g = (((csc.calculate(x, eps)-h)-sin.calculate(x,eps))- cos.calculate(x,eps));
-//                double j = g + (csc.calculate(x, eps)-
-//                                    ((cos.calculate(x,eps)-
-//                                            (( Math.pow((sin.calculate(x,eps)-(sin.calculate(x,eps)+cot.calculate(x,eps))),2)
-//                                                    +tg.calculate(x,eps)))
-//                                            + (csc.calculate(x,eps)+(cos.calculate(x, eps)- (csc.calculate(x,eps)/(sec.calculate(x,eps)- sin.calculate(x,eps))))))
-//                                    )
-//                                );
-//                double result = f/j;
-
-//                double firstTermNumerator1 = sec.calculate(x, eps) * csc.calculate(x, eps);
-//                double firstTermNumerator = firstTermNumerator1 / csc.calculate(x, eps);
-//
-//                double firstTermDenominator1 = cos.calculate(x, eps) + (sin.calculate(x, eps) - sec.calculate(x, eps));
-//                double firstTermDenominator = firstTermDenominator1 / cot.calculate(x, eps);
-//
-//                double firstMul1 = (firstTermNumerator / firstTermDenominator) + cot.calculate(x, eps);
-//
-//                double firstMul = Math.pow((firstMul1 / tg.calculate(x, eps)), 3) + (cos.calculate(x, eps) - tg.calculate(x, eps));
-//
-//                double secondMul1 = cot.calculate(x, eps) * (sin.calculate(x, eps) / (cos.calculate(x, eps) + cot.calculate(x, eps)));
-//                double secondMul2 = secondMul1 + sec.calculate(x, eps);
-//
-//                double rightPart = Math.pow((csc.calculate(x, eps) * csc.calculate(x, eps) * sin.calculate(x, eps)), 3);
-//                double secondMul = secondMul2 - rightPart;
-//                double upperPart = Math.pow(firstMul * secondMul, 3);
-//
-//                double lowerFraction = (csc.calculate(x, eps) + ((sec.calculate(x, eps) / (sec.calculate(x, eps) * csc.calculate(x, eps))) * cos.calculate(x, eps))) / cos.calculate(x, eps);
-//                double rightParenthesis = csc.calculate(x, eps)
-//                        - ((cos.calculate(x, eps)
-//                        - (Math.pow((sin.calculate(x, eps)
-//                        - (sin.calculate(x, eps)
-//                        + cot.calculate(x, eps))), 2)
-//                        + tg.calculate(x, eps)))
-//                        + (csc.calculate(x, eps)
-//                        + (cos.calculate(x, eps)
-//                        - (csc.calculate(x, eps)
-//                        / (sec.calculate(x, eps)
-//                        - sin.calculate(x, eps))))));
-//
-//                double lowerPart = csc.calculate(x, eps)
-//                        - lowerFraction
-//                        - sin.calculate(x, eps)
-//                        - cos.calculate(x, eps)
-//                        + rightParenthesis;
-//
-//                double result = upperPart / lowerPart;
-//                if (Math.abs(result) > 3000) return Double.NaN;
-//                else return result;
             }
         } catch (ArithmeticException e) {
             return Double.NaN;
