@@ -22,6 +22,11 @@ public class Tg implements Calculatable {
         this.sin = sin;
     }
 
+    public Tg(Cos cos) {
+        this.cos = cos;
+        this.sin = new Sin(cos);
+    }
+
     public double calculate(double x, double eps) throws AccuracyException, ArithmeticException {
         BigDecimal calculatedCos = BigDecimal.valueOf(cos.calculate(x, eps));
         if (calculatedCos.compareTo(BigDecimal.ZERO) == 0) return Double.NaN;

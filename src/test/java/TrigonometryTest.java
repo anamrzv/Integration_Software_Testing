@@ -233,9 +233,74 @@ public class TrigonometryTest {
         assertEquals(-0.8481, cos.calculate(-3.7, 0.0001), DELTA);
     }
 
-    @DisplayName("Test all functions without Mock")
+    @DisplayName("Test all functions with only Cos Mock (real Sin)")
     @Test
-    public void integrateTest(){
+    public void integrateTestSin(){
+        Cos cos = Mockito.spy(Cos.class);
+
+        Csc csc = new Csc();
+        assertEquals(2d, csc.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(Math.sqrt(2), csc.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3)*2/3, csc.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(1d, csc.calculate(Math.PI/2, 0.001));
+        assertEquals(Double.NaN, csc.calculate(0, 0.001));
+        assertEquals(Double.NaN,csc.calculate(Math.PI * 2, 0.001));
+        assertEquals(Math.sqrt(3)*2/3, csc.calculate(2*Math.PI/3, 0.001), DELTA);
+        assertEquals(Double.NaN,csc.calculate(Math.PI, 0.001));
+        assertEquals(-2, csc.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-Math.sqrt(2), csc.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3)*2/3, csc.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-1, csc.calculate(-Math.PI/2, 0.001));
+        assertEquals(1.88738, csc.calculate(-3.7, 0.0001), DELTA);
+
+        Tg tan = new Tg(cos);
+        Cot cot = new Cot(cos);
+        assertEquals(0d, tan.calculate(0, 0.001), DELTA);
+        assertEquals(Double.NaN,tan.calculate(Math.PI/2, 0.001));
+        assertEquals(0d, tan.calculate(Math.PI, 0.001), DELTA);
+        assertEquals(Double.NaN,tan.calculate(3*Math.PI/2, 0.001));
+        assertEquals(1d, tan.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3), tan.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(1/Math.sqrt(3), tan.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(-1d, tan.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3), tan.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-1/Math.sqrt(3), tan.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-0.624733, tan.calculate(-3.7, 0.0001), DELTA);
+
+        assertEquals(Double.NaN,cot.calculate(0, 0.001));
+        assertEquals(0d, cot.calculate(Math.PI/2, 0.001), DELTA);
+        assertEquals(Double.NaN,cot.calculate(Math.PI, 0.001));
+        assertEquals(0d, cot.calculate(3*Math.PI/2, 0.001), DELTA);
+        assertEquals(1d, cot.calculate(Math.PI/4, 0.001), DELTA);
+        assertEquals(1/Math.sqrt(3), cot.calculate(Math.PI/3, 0.001), DELTA);
+        assertEquals(Math.sqrt(3), cot.calculate(Math.PI/6, 0.001), DELTA);
+        assertEquals(-1d, cot.calculate(-Math.PI/4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3)/3, cot.calculate(-Math.PI/3, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3), cot.calculate(-Math.PI/6, 0.001), DELTA);
+        assertEquals(-1.60068, cot.calculate(-3.7, 0.0001), DELTA);
+
+        Sin sin = new Sin();
+        assertEquals(0d, sin.calculate(0, 0.001));
+        assertEquals(1d, sin.calculate(Math.PI/2, 0.001));
+        assertEquals(0d, sin.calculate(Math.PI, 0.001));
+        assertEquals(-1d, sin.calculate(1.5*Math.PI, 0.001));
+        assertEquals(0d, sin.calculate(2*Math.PI, 0.001));
+        assertEquals(-1d, sin.calculate(-Math.PI/2, 0.001));
+        assertEquals(0d, sin.calculate(-Math.PI, 0.001));
+        assertEquals(1d, sin.calculate(-1.5*Math.PI, 0.001));
+        assertEquals(0d, sin.calculate(-2*Math.PI, 0.001));
+        assertEquals(Math.sqrt(2) / 2, sin.calculate(Math.PI / 4, 0.001), DELTA);
+        assertEquals(Math.sqrt(3) / 2, sin.calculate(Math.PI / 3, 0.001), DELTA);
+        assertEquals(0.5, sin.calculate(Math.PI / 6, 0.001), DELTA);
+        assertEquals(-Math.sqrt(2) / 2, sin.calculate(-Math.PI / 4, 0.001), DELTA);
+        assertEquals(-Math.sqrt(3) / 2, sin.calculate(-Math.PI / 3, 0.001), DELTA);
+        assertEquals(-0.5, sin.calculate(-Math.PI / 6, 0.001), DELTA);
+        assertEquals(0.529836, sin.calculate(-3.7, 0.0001), DELTA);
+    }
+
+    @DisplayName("Test all functions without any Mock")
+    @Test
+    public void integrateTestCos(){
         Csc csc = new Csc();
         assertEquals(2d, csc.calculate(Math.PI/6, 0.001), DELTA);
         assertEquals(Math.sqrt(2), csc.calculate(Math.PI/4, 0.001), DELTA);
